@@ -1,0 +1,25 @@
+server {
+	listen 8080;
+
+	location / {		
+		limit_except GET {
+			deny all;
+		}
+
+		set $css '<style>\n';
+		set $css '${css} * { color: #dcdccc !important; background-color: #404040 !important; }\n';
+		set $css '${css} body > center > table > tbody > tr:first-child * { background-color: #505050 !important; }\n';
+		set $css '${css} body > center > table > tbody > tr:first-child * a:hover { background: #404040 !important; }\n';
+		set $css '${css} code, pre, input, textarea { background: #505050 !important; }\n';
+		set $css '${css} a { color: #7F9F7F !important; }\n';
+  		set $css '${css} .subtext a { color: #dcdccc !important; }\n';
+  		set $css '${css} a:visited, a:visited span { color: #CC9393 !important; }\n';
+  		set $css '${css} a:hover, a:hover span { background: #505050 !important; }\n';
+		set $css '${css} </style><link rel="shortcut icon" href="favicon.ico">';
+  
+		sub_filter '<link rel="shortcut icon" href="favicon.ico">' $css;
+
+		proxy_set_header Cookie "";
+		proxy_pass https://news.ycombinator.com;
+	}
+}

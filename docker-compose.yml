@@ -1,0 +1,9 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - $PWD/templates:/etc/nginx/templates
+    ports:
+      - 8080:8080
+
