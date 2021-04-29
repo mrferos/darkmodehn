@@ -3,7 +3,7 @@ services:
   nginx:
     image: nginx:alpine
     volumes:
-      - $PWD/templates:/etc/nginx/templates
+      - $PWD/roles/darkmodehn/files/darkmode.conf:/etc/nginx/conf.d/darkmode.conf
     ports:
       - 8080:8080
 

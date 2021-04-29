@@ -1,0 +1,15 @@
+---
+
+- name: install packages
+  apt:
+    name: 
+      - nginx
+      - certbot
+      - python3-certbot-nginx
+    state: present
+
+- name: set darkmode template
+  copy:
+    src: files/darkmode.conf
+    dest: /etc/nginx/conf.d/darkmode.conf
+  notify: restart nginx

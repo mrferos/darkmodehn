@@ -1,0 +1,27 @@
+- hosts: darkmodehn
+  become: true
+  collections:
+    - devsec.hardening
+  
+  roles:
+    - os_hardening
+    - role: ssh_hardening
+      vars:
+        sftp_enabled: true
+    - darkmodehn
+    - nginx_hardening
+
+  tasks:
+    - name: give ownership back to www-data
+      file:
+        dest: /etc/nginx
+        owner: www-data
+        group: www-data
+        recurse: true 
+      notify: restart nginx
+  
+  handlers:
+    - name: restart nginx
+      service: 
+        name: nginx
+        state: restarted
